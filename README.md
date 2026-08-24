@@ -98,7 +98,7 @@ Durante o desenvolvimento desse projeto e a implementação de melhoras, pude ap
 
 1. Descobri que o Axum resolve dependências de forma muito elegante diretamente na assinatura das funções. Quando coloco um argumento como o Repository ou uma struct Admin, o framework utiliza a trait FromRequestParts. Na prática, antes mesmo de a requisição executar a lógica da função, o Axum inspeciona o estado da aplicação e os cabeçalhos, extrai o que é necessário e injeta o objeto pronto para uso.
 
-2. Acostumado a modelar bancos e escrever queries diretamente no PostgreSQL, a macro "query_as!" do SQLx mudou minha perspectiva. Em vez de enviar strings de texto que só dariam erro em tempo de execução, o SQLx se conecta ao banco de dados durante a compilação. Ele verifica se a sintaxe está correta, se as tabelas/colunas existem e se os tipos do banco correspondem perfeitamente às structs do Rust. Se a query estiver errada, o código simplesmente não compila.
+2. Acostumado a modelar bancos e escrever queries diretamente no PostgreSQL, a macro "query_as!" do SQLx mudou muito minha perspectiva. Em vez de enviar strings de texto que só dariam erro em tempo de execução, o SQLx se conecta ao banco de dados durante a compilação. Ele verifica se a sintaxe está correta, se as tabelas/colunas existem e se os tipos do banco correspondem perfeitamente às structs do Rust. Se a query estiver errada, o código simplesmente não compila.
 
 3. Um erro clássico que me confundiu bastante no início foi quando o compilador reclamava que the trait bound is not satisfied para a trait Handler. Com o tempo, aprendi que apenas significa que um dos parâmetros da minha rota não era um extractor válido.
 
