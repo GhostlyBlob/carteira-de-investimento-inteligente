@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}Entrar — Carteira de Investimentos{% endblock %}
+
+{% block content %}
+<div class="login">
+    <form method="POST" action="/login" class="login__form">
+        <p class="login__eyebrow mono">acesso</p>
+        <h1 class="brand login__title">Carteira de Investimentos</h1>
+        <label class="login__field">
+            <span>usuário</span>
+            <input type="text" name="username" required autocomplete="username" autofocus>
+        </label>
+        <label class="login__field">
+            <span>senha</span>
+            <input type="password" name="password" required minlength="6" autocomplete="current-password">
+        </label>
+        <button type="submit">entrar</button>
+        <p class="login__hint">Se o usuário ainda não existir, sua conta é criada na hora.</p>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_style %}
+<style>
+    .login {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem 1.25rem;
+    }
+    .login__form {
+        width: 100%;
+        max-width: 22rem;
+        border-top: 1px solid var(--rule);
+        padding-top: 1.75rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.1rem;
+    }
+    .login__eyebrow {
+        margin: 0;
+        font-size: 0.72rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--brass);
+    }
+    .login__title {
+        margin: 0 0 0.5rem;
+        font-size: 1.5rem;
+        font-weight: 500;
+    }
+    .login__field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+        font-size: 0.8rem;
+        color: var(--paper-dim);
+    }
+    .login__field input {
+        background: var(--ink-raised);
+        border: 1px solid var(--rule);
+        border-radius: 3px;
+        padding: 0.65rem 0.75rem;
+        color: var(--paper);
+        font-family: 'Inter', sans-serif;
+        font-size: 0.95rem;
+    }
+    .login__field input:focus {
+        border-color: var(--brass);
+    }
+    .login__form button {
+        margin-top: 0.4rem;
+        padding: 0.7rem 1rem;
+        background: var(--brass);
+        color: var(--ink);
+        border: none;
+        border-radius: 3px;
+        font-family: 'Inter', sans-serif;
+        font-weight: 600;
+        font-size: 0.9rem;
+        cursor: pointer;
+    }
+    .login__form button:hover { background: var(--brass-bright); }
+    .login__hint {
+        margin: 0;
+        font-size: 0.75rem;
+        color: var(--paper-dim);
+    }
+</style>
+{% endblock %}

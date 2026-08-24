@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+
+{% block title %}Painel — Carteira de Investimentos{% endblock %}
+
+{% block masthead %}
+<header class="masthead">
+    <span class="brand masthead__brand">Carteira de Investimentos</span>
+    <div class="masthead__user">
+        <span>usuário <b>{{ username }}</b></span>
+        <form method="POST" action="/logout">
+            <button type="submit" class="logout-btn">sair</button>
+        </form>
+    </div>
+</header>
+{% endblock %}
+
+{% block content %}
+<div class="summary">
+    <span class="mono summary__label">valor total da carteira</span>
+    <span class="mono summary__value">{{ total_value_display }}</span>
+</div>
+
+{% if assets.is_empty() %}
+<div class="ledger">
+    <div class="ledger__head">
+        <span class="mono ledger__eyebrow">ativos disponíveis</span>
+        <span class="mono ledger__count">0</span>
+    </div>
+    <p class="ledger__empty">
+        Nenhum ativo cadastrado ainda. Um administrador pode cadastrar um
+        via <code class="mono">POST /api/assets</code>.
+    </p>
+</div>
+{% else %}
+<div class="ticker" aria-hidden="true">
+    <div class="ticker__track">
+        {% for asset in assets %}
+        <span class="ticker__item">{{ asset.name }} <b>{{ asset.unit_value_display }}</b></span>
+        {% endfor %}
+        {% for asset in assets %}
+        <span class="ticker__item">{{ asset.name }} <b>{{ asset.unit_value_display }}</b></span>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="ledger">
+    <div class="ledger__head">
+        <span class="mono ledger__eyebrow">ativos disponíveis</span>
+        <span class="mono ledger__count">{{ assets.len() }}</span>
+    </div>
+    <ul class="ledger__list">
+        {% for asset in assets %}
+        <li class="ledger__row">
+            <span class="ledger__name">{{ asset.name }}</span>
+            <span class="ledger__value mono">{{ asset.unit_value_display }}</span>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<footer class="footnote">catálogo de ativos disponíveis · dashboard em construção</footer>
+{% endblock %}
+
+{% block extra_style %}
+<style>
+    .summary {
+        max-width: 40rem;
+        margin: 0 auto;
+        padding: 1.75rem 1.5rem 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        width: 100%;
+    }
+    .summary__label {
+        font-size: 0.72rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--paper-dim);
+    }
+    .summary__value {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: var(--brass);
+    }
+    .masthead__user form { margin: 0; display: inline; }
+    .logout-btn {
+        background: none;
+        border: none;
+        padding: 0;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.85rem;
+        color: var(--paper-dim);
+        border-bottom: 1px solid var(--rule);
+        cursor: pointer;
+    }
+    .logout-btn:hover { color: var(--brass-bright); border-color: var(--brass-bright); }
+
+    .ledger {
+        max-width: 40rem;
+        width: 100%;
+        margin: 0 auto;
+        padding: 2.5rem 1.5rem 1.5rem;
+        flex: 1;
+    }
+    .ledger__head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        padding-bottom: 0.6rem;
+        border-bottom: 1px solid var(--rule);
+        margin-bottom: 0.25rem;
+    }
+    .ledger__eyebrow {
+        font-size: 0.72rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--brass);
+    }
+    .ledger__count { font-size: 0.78rem; color: var(--paper-dim); }
+    .ledger__list { list-style: none; margin: 0; padding: 0; }
+    .ledger__row {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        padding: 0.9rem 0;
+        border-bottom: 1px solid var(--rule);
+    }
+    .ledger__name { font-size: 1rem; }
+    .ledger__value { font-size: 1rem; color: var(--brass); font-weight: 700; }
+    .ledger__empty {
+        padding: 1.5rem 0;
+        color: var(--paper-dim);
+        font-size: 0.9rem;
+        line-height: 1.6;
+    }
+    .ledger__empty code {
+        background: var(--ink-raised);
+        padding: 0.15rem 0.4rem;
+        border-radius: 3px;
+        font-size: 0.82rem;
+    }
+    .footnote {
+        text-align: center;
+        padding: 1.5rem;
+        font-size: 0.72rem;
+        color: var(--paper-dim);
+        letter-spacing: 0.03em;
+    }
+</style>
+{% endblock %}

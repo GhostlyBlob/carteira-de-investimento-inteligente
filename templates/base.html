@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Carteira de Investimentos{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #0b0e11;
+            --ink-raised: #12161b;
+            --paper: #e9e4d6;
+            --paper-dim: #9a9488;
+            --brass: #c98a3b;
+            --brass-bright: #f0ae5c;
+            --rule: rgba(233, 228, 214, 0.14);
+        }
+
+        * { box-sizing: border-box; }
+
+        html, body {
+            margin: 0;
+            min-height: 100vh;
+            background: var(--ink);
+            color: var(--paper);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand {
+            font-family: 'Fraunces', serif;
+            font-optical-sizing: auto;
+            letter-spacing: 0.01em;
+        }
+
+        .mono { font-family: 'Space Mono', monospace; }
+
+        a { color: var(--brass); text-decoration: none; }
+        a:hover { color: var(--brass-bright); text-decoration: underline; }
+
+        a:focus-visible, button:focus-visible, input:focus-visible {
+            outline: 2px solid var(--brass-bright);
+            outline-offset: 2px;
+        }
+
+        .masthead {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 1.1rem 1.5rem;
+            border-bottom: 1px solid var(--rule);
+        }
+
+        .masthead__brand {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--paper);
+        }
+
+        .masthead__user {
+            display: flex;
+            align-items: baseline;
+            gap: 0.9rem;
+            font-size: 0.85rem;
+            color: var(--paper-dim);
+        }
+
+        .masthead__user b { color: var(--paper); font-weight: 500; }
+
+        .masthead__user a.logout {
+            color: var(--paper-dim);
+            border-bottom: 1px solid var(--rule);
+        }
+        .masthead__user a.logout:hover { color: var(--brass-bright); border-color: var(--brass-bright); }
+
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* fita de ticker */
+        .ticker {
+            border-bottom: 1px solid var(--rule);
+            background: var(--ink-raised);
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .ticker__track {
+            display: inline-flex;
+            animation: ticker-scroll 28s linear infinite;
+            padding: 0.55rem 0;
+        }
+        .ticker__item {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.78rem;
+            color: var(--paper-dim);
+            padding: 0 1.75rem;
+            border-right: 1px solid var(--rule);
+        }
+        .ticker__item b { color: var(--brass); font-weight: 700; }
+        @keyframes ticker-scroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .ticker__track { animation: none; }
+        }
+    </style>
+    {% block extra_style %}{% endblock %}
+</head>
+<body>
+    {% block masthead %}
+    <header class="masthead">
+        <span class="brand masthead__brand">Carteira de Investimentos</span>
+    </header>
+    {% endblock %}
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
